@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 # Define the SSH command with single-character flags
-ssh -i ~/.ssh/school ubuntu@your_server_ip
+ssh -i ~/.ssh/school ubuntu@54.160.125.234
