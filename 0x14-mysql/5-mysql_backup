@@ -1,4 +1,30 @@
 #!/usr/bin/env bash
 # Generates a compressed archive of a MySQL dump.
+
+# Check if password is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <mysql_root_password>"
+  exit 1
+fi
+
+# Perform the MySQL dump
 mysqldump -uroot -p"$1" --all-databases > backup.sql
+
+# Check if the mysqldump command succeeded
+if [ $? -ne 0 ]; then
+  echo "mysqldump failed"
+  exit 1
+fi
+
+# Create a compressed archive of the dump
 tar -cvzf "$(date +%d-%m-%Y)".tar.gz backup.sql
+
+# Check if the tar command succeeded
+if [ $? -ne 0 ]; then
+  echo "tar command failed"
+  exit 1
+fi
+
+# Remove the uncompressed dump file
+rm backup.sql
+
